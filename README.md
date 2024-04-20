@@ -1,19 +1,28 @@
-# NeoGPT-Explorer
-
-Find more information at: https://medium.com/neo4j/knowledge-graph-based-chatbot-with-gpt-3-and-neo4j-c4ebbd325ed
+# NeoHaiku-Explorer
 
 Run the following commands to start the services:
 
+1. Create an `.env` file and input your API KEY as shown in `env.example`
 
-1. Create an `.env` file and input your OPENAI API KEY as shown in `env.example`
-
-2. Start docker services
+2. Start docker services for neo4j server
 
 ```
 docker-compose up
 ```
 
-3. On the first run, you need to seed the database with the following command
+3. Activate the virtual python environment and install the dependencies mentioned in requirements.txt
+
+```
+pip install -r requirements.txt
+```
+
+Run the streamlit chat application
+```
+streamlit run app.py 
+```
+
+
+4. On the first run, you need to seed the database with the following command
 
 ```
 sh seed_database.sh
@@ -21,7 +30,7 @@ sh seed_database.sh
 
 If you are using Windows, you can also execute the `notebooks/Import.ipynb` notebook for initial import
 
-4. Open localhost:8501 in your browser
+5. Open localhost:8501 in your browser
 
 ## Example questions
 
@@ -52,8 +61,3 @@ Testing dataset consists of 1000 latest articles from Kaggle repository: https:/
 ## Preprocessing
 
 The information extraction pipeline was executed with Diffbot API: See `notebooks/Preprocess.ipynb`.
-
-## Feedback
-
-Please create an issue if you have any feedback!
-

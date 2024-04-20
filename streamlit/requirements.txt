@@ -3,4 +3,5 @@ streamlit-chat==0.0.2.1
 openai==0.26.5
 neo4j==5.5.0
 altair==4.2.2
+anthropic==0.25.6
 # transformers==4.11.3

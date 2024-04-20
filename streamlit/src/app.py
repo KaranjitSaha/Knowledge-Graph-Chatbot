@@ -1,5 +1,4 @@
 import os
-import openai
 import streamlit as st
 from streamlit_chat import message
 import requests
@@ -10,7 +9,7 @@ import anthropic
 from driver import read_query, get_article_text
 from train_cypher import examples
 
-st.title("NeoGPT : GPT3 + Neo4j")
+st.title("NeoHaiku : Claude3 + Neo4j")
 
 def get_env_variable(key):
     with open('.env', 'r') as file:
@@ -44,7 +43,7 @@ def generate_response(prompt, cypher=True):
         ]
         message = client.messages.create(
             model="claude-3-haiku-20240307",
-            max_tokens=1000,
+            max_tokens=256,
             temperature=0.5,
             # system="Respond formally.",
             messages=messages
@@ -79,7 +78,11 @@ user_input = get_text()
 if user_input:
     # Summarize articles
     if "summar" in user_input.lower():
-        article_title = user_input.split(":")[1].strip()
+        article_title = user_input.split(":")[1]
+        # try:
+        #     article_title = int(article_title)
+        # except ValueError:
+        #     print(f"Cannot convert {article_title} to an integer.")
         article_text = get_article_text(article_title)
         if not article_text:
             st.session_state.past.append(user_input)
@@ -90,7 +93,7 @@ if user_input:
             print(article_text)
             print("\n")
             output, cypher_query = generate_response(article_text[0], cypher=False)
-            st.session_state.past.append(article_text)
+            st.session_state.past.append(user_input)
             st.session_state.generated.append(([output], cypher_query))
     # English2Cypher with GPT
     else:
